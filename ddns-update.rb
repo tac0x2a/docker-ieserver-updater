@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
 require 'optparse'
-opts = ARGV.getopts("u:d:p:")
+opts = ARGV.getopts("u:d:p:", "c:'current_ip'")
 
-current_ip = File.read("current_ip").strip rescue  "0.0.0.0"
+current_ip = File.read(opts["c"]).strip rescue  "0.0.0.0"
 
 REMOTE_ADDR_CHK = "http://ieserver.net/ipcheck.shtml";
 new_ip = `wget -q -O - #{REMOTE_ADDR_CHK}`;
@@ -25,5 +25,5 @@ url = "#{DDNS_UPDATE}?#{param_string}"
 result = `wget -q -O - '#{url}'`
 
 if result.include?(new_ip)
-  File.open("current_ip", "w"){|c| c.puts new_ip }
+  File.open(opts["c"], "w"){|c| c.puts new_ip }
 end
