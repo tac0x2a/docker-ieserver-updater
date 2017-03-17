@@ -1,0 +1,13 @@
+version: '2'
+services:
+  ieserver-updater:
+    restart: always
+    image: tac0x2a/docker-ieserver-updater
+    container_name: docker-ieserver-updater
+    volumes:
+      - ./volume:/work/volume
+    environment:
+      USERNAME: host
+      DOMAIN: domain.jp
+      PASSWORD: <password>
+      CRON_SCHEDULE: "*/5 * * * *"
