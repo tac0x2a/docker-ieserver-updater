@@ -1,15 +1,16 @@
 # docker-ieserver-updater
 
-This Docker image updates [ieServer.Net](http://www.ieserver.net/) DDNS registration.
+このDockerイメージは[ieServer.Net](http://www.ieserver.net/) の DDNS登録を更新します．
 
-# Usage
-Run with environment variables `USERNAME`, `DOMAIN`, `PASSWORD`, and update schadule as `CRON_SCHEDULE` witten cron format (see "man 5 crontab" in your terminal).
+# 使い方
+環境変数として，`USERNAME`, `DOMAIN`, `PASSWORD` と，cronのフォーマットで更新スケジュールを記載した `CRON_SCHEDULE` を与えます．
+cronフォーマットについては，"man 5 crontab" を参照．
 
-## Example
-Update domain `host.domain.jp` each 5 min.
+## 例
+ドメイン `host.domain.jp` を 5分おきに更新する．
 
-### docker-compose
-Edit `docker-compose.yml`
+### docker-compose を使う場合
+`docker-compose.yml` を以下のように編集します
 
 ```yml
 version: '2'
@@ -27,13 +28,13 @@ services:
       CRON_SCHEDULE: "*/5 * * * *"
 ```
 
-And up.
+その後，以下コマンドで起動します．
 
 ```sh
 $ docker-compose up -d
 ```
 
-### docker run
+### docker run を使う場合
 
 ```sh
 $ docker run -d -v /your/host/dir:/work/volume -e USERNAME=host -e DOMAIN=domain.jp -e PASSWORD=<Password> -e CRON_SCHEDULE="*/5 * * * *" tac0x2a/docker-ieserver-updater
